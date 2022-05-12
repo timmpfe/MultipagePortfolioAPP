@@ -3,30 +3,38 @@ import dash
 from dash import Dash, dcc, html, Input, Output, State, callback, dash_table
 import dash_bootstrap_components as dbc
 from flask import Flask
+
 pd.options.mode.chained_assignment = None  # default='warn'
 
-data = pd.read_csv('leaderboard.txt', header=None)
-data.columns = ['Nummer', 'Sharpe Ratio', 'Sharpe Ratio 2', 'Endwert', 'Absoluter Ertrag 2',
-                '% Ertrag', '% Ertrag 2']
 
-for i in range(len(data)):
-    data.loc[i, 'Nummer'] = data.loc[i, 'Nummer'].replace(data.loc[i, 'Nummer'], data.loc[i, 'Nummer'][1:])
-    data.loc[i, '% Ertrag 2'] = data.loc[i, '% Ertrag 2'].replace(data.loc[i, '% Ertrag 2'],
-                                                                  data.loc[i, '% Ertrag 2'][:-1])
-data = data.astype(float).round(4)
+def get_data():
+    data = pd.read_csv('leaderboard.txt', header=None)
+    data.columns = ['Nummer', 'Sharpe Ratio', 'Sharpe Ratio 2', 'Endwert', 'Absoluter Ertrag 2',
+                    '% Ertrag', '% Ertrag 2']
 
-data2 = data.drop_duplicates(subset=['Nummer'])
-data1a = data2[['Nummer', 'Sharpe Ratio', 'Endwert', '% Ertrag']]
-data1b = data2[['Nummer', 'Sharpe Ratio 2', 'Absoluter Ertrag 2', '% Ertrag 2']]
-data1b.columns = ['Nummer', 'Sharpe Ratio', 'Endwert', '% Ertrag']
-data1b = data1b.iloc[1:]
-data1 = data1a.append(data1b)
-data1 = data1.sort_values(by=['Sharpe Ratio'], ascending=False)
-data1['Rang'] = range(len(data1))
-data1['Rang'] += 1
+    for i in range(len(data)):
+        data.loc[i, 'Nummer'] = data.loc[i, 'Nummer'].replace(data.loc[i, 'Nummer'], data.loc[i, 'Nummer'][1:])
+        data.loc[i, '% Ertrag 2'] = data.loc[i, '% Ertrag 2'].replace(data.loc[i, '% Ertrag 2'],
+                                                                      data.loc[i, '% Ertrag 2'][:-1])
+    data = data.astype(float).round(4)
 
-num = data.iloc[-1].Nummer
-Platz = data1.loc[data1['Nummer']==num, 'Rang'].iloc[0]
+    data2 = data.drop_duplicates(subset=['Nummer'])
+    data1a = data2[['Nummer', 'Sharpe Ratio', 'Endwert', '% Ertrag']]
+    data1b = data2[['Nummer', 'Sharpe Ratio 2', 'Absoluter Ertrag 2', '% Ertrag 2']]
+    data1b.columns = ['Nummer', 'Sharpe Ratio', 'Endwert', '% Ertrag']
+    data1b = data1b.iloc[1:]
+    data1 = data1a.append(data1b)
+    data1 = data1.sort_values(by=['Sharpe Ratio'], ascending=False)
+    data1['Rang'] = range(len(data1))
+    data1['Rang'] += 1
+
+    num = data.iloc[-1].Nummer
+    Platz = data1.loc[data1['Nummer'] == num, 'Rang'].iloc[0]
+
+    return data1, num, Platz
+
+
+init_data, init_num, init_platz = get_data()
 
 style_text = {'textAlign': 'center', 'color': '#003361'}
 
@@ -46,11 +54,13 @@ app.layout = html.Div([
         dbc.Row(html.H3('Leaderboard', style=style_text)),
         html.Br(),
         dbc.Row([
-            dbc.Col(html.H6('Sie sind auf Platz: {}'.format(Platz), style={'textAlign': 'center', 'color': '#f39200'})),
-            dbc.Col(html.H6('Ihre Nummmer lautet: {}'.format(int(num)),
+            dbc.Col(html.H6('Sie sind auf Platz: {}'.format(init_platz), id="platz-text",
+                            style={'textAlign': 'center', 'color': '#f39200'})),
+            dbc.Col(html.H6('Ihre Nummmer lautet: {}'.format(int(init_num)), id="nummer-text",
                             style={'textAlign': 'center', 'color': '#f39200'}))]),
         html.Br(),
-        dbc.Row(dash_table.DataTable(data1.to_dict('records'), columns=[{"name": i, "id": i} for i in data1.columns],
+        dbc.Row(dash_table.DataTable(init_data.to_dict('records'), id="leaderboard",
+                                     columns=[{"name": i, "id": i} for i in init_data.columns],
                                      style_data_conditional=[
                                          {
                                              'if': {
@@ -60,10 +70,23 @@ app.layout = html.Div([
                                              'color': '#f39200'
                                          }
                                      ])
-        )
+                ),
+        # Der Timer triggered die "updateTable" Funktion alle 5 Sekunden
+        dash.dcc.Interval(id="timer", interval=5000)
     ])
 ])
-#test
+
+
+@app.callback([Output("leaderboard", "data"), Output("platz-text", "children"), Output("nummer-text", "children")],
+              [Input("timer", "n_intervals")])
+def updateTable(n_intervals):
+    # Die Funktion liest dann die Daten ein ...
+    data, num, platz = get_data()
+    # ... und gibt sie an Dash zurück. Dank der Annotation weiß Dash, wo die Daten dann hingehören
+    return get_data()[0].to_dict('records'), 'Sie sind auf Platz: {}'.format(platz), 'Ihre Nummmer lautet: {}'.format(
+        int(init_num))
+
+
 if __name__ == '__main__':
     app.run_server(debug=True, host='localhost', port=8000)
 

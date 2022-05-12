@@ -30,7 +30,7 @@ index_page = html.Div([
     html.Br(),
     dcc.Link('Historische Information', href='/page-2'),
     html.Br(),
-    #dcc.Link('Historische Information 2', href='/page-3'),
+    # dcc.Link('Historische Information 2', href='/page-3'),
     html.Br(),
     dcc.Link('Summary', href='/page-3'),
 ])
@@ -173,107 +173,106 @@ page_2_layout = html.Div([
         # Seperated into 5 rows à 6 stocks - a total of 30 stocks can be selected
         dbc.Row([
             dbc.Col(dbc.Button(id='button_1',
-                               children=[dbc.CardImg(src='/AAPL_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_1", src='/AAPL_2007_2012.png')],
                                outline=True, style=style_button)),
             dbc.Col(dbc.Button(id='button_2',
-                               children=[dbc.CardImg(src='AMGN_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_2", src='AMGN_2007_2012.png')],
                                outline=True, style=style_button)),
             dbc.Col(dbc.Button(id='button_3',
-                               children=[dbc.CardImg(src='/AXP_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_3", src='/AXP_2007_2012.png')],
                                outline=True, style=style_button)),
             dbc.Col(dbc.Button(id='button_4',
-                               children=[dbc.CardImg(src='/BA_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_4", src='/BA_2007_2012.png')],
                                outline=True, style=style_button)),
             dbc.Col(dbc.Button(id='button_5',
-                               children=[dbc.CardImg(src='/CAT_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_5", src='/CAT_2007_2012.png')],
                                outline=True, style=style_button)),
             dbc.Col(dbc.Button(id='button_6',
-                               children=[dbc.CardImg(src='/CRM_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_6", src='/CRM_2007_2012.png')],
                                outline=True, style=style_button))]
         ),
         dbc.Row([
             dbc.Col(dbc.Button(id='button_7',
-                               children=[dbc.CardImg(src='/CSCO_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_7", src='/CSCO_2007_2012.png')],
                                outline=True, style=style_button)),
             dbc.Col(dbc.Button(id='button_8',
-                               children=[dbc.CardImg(src='/CVX_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_8", src='/CVX_2007_2012.png')],
                                outline=True, style=style_button)),
             dbc.Col(dbc.Button(id='button_9',
-                               children=[dbc.CardImg(src='/DIS_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_9", src='/DIS_2007_2012.png')],
                                outline=True, style=style_button)),
             dbc.Col(dbc.Button(id='button_10',
-                               children=[dbc.CardImg(src='/GE_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_10", src='/GE_2007_2012.png')],
                                outline=True, style=style_button)),
             dbc.Col(dbc.Button(id='button_11',
-                               children=[dbc.CardImg(src='/GS_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_11", src='/GS_2007_2012.png')],
                                outline=True, style=style_button)),
             dbc.Col(dbc.Button(id='button_12',
-                               children=[dbc.CardImg(src='/HD_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_12", src='/HD_2007_2012.png')],
                                outline=True, style=style_button))]
         ),
         dbc.Row([
             dbc.Col(dbc.Button(id='button_13',
-                               children=[dbc.CardImg(src='/HON_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_13", src='/HON_2007_2012.png')],
                                outline=True, style=style_button)),
             dbc.Col(dbc.Button(id='button_14',
-                               children=[dbc.CardImg(src='/IBM_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_14", src='/IBM_2007_2012.png')],
                                outline=True, style=style_button)),
             dbc.Col(dbc.Button(id='button_15',
-                               children=[dbc.CardImg(src='/INTC_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_15", src='/INTC_2007_2012.png')],
                                outline=True, style=style_button)),
             dbc.Col(dbc.Button(id='button_16',
-                               children=[dbc.CardImg(src='/JNJ_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_16", src='/JNJ_2007_2012.png')],
                                outline=True, style=style_button)),
             dbc.Col(dbc.Button(id='button_17',
-                               children=[dbc.CardImg(src='/JPM_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_17", src='/JPM_2007_2012.png')],
                                outline=True, style=style_button)),
             dbc.Col(dbc.Button(id='button_18',
-                               children=[dbc.CardImg(src='/KO_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_18", src='/KO_2007_2012.png')],
                                outline=True, style=style_button))]
         ),
         dbc.Row([
             dbc.Col(dbc.Button(id='button_19',
-                               children=[dbc.CardImg(src='/MCD_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_19", src='/MCD_2007_2012.png')],
                                outline=True, style=style_button)),
             dbc.Col(dbc.Button(id='button_20',
-                               children=[dbc.CardImg(src='/MMM_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_20", src='/MMM_2007_2012.png')],
                                outline=True, style=style_button)),
             dbc.Col(dbc.Button(id='button_21',
-                               children=[dbc.CardImg(src='/MRK_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_21", src='/MRK_2007_2012.png')],
                                outline=True, style=style_button)),
             dbc.Col(dbc.Button(id='button_22',
-                               children=[dbc.CardImg(src='/MSFT_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_22", src='/MSFT_2007_2012.png')],
                                outline=True, style=style_button)),
             dbc.Col(dbc.Button(id='button_23',
-                               children=[dbc.CardImg(src='/NKE_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_23", src='/NKE_2007_2012.png')],
                                outline=True, style=style_button)),
             dbc.Col(dbc.Button(id='button_24',
-                               children=[dbc.CardImg(src='/PG_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_24", src='/PG_2007_2012.png')],
                                outline=True, style=style_button))]
         ),
         dbc.Row([
             dbc.Col(dbc.Button(id='button_25',
-                               children=[dbc.CardImg(src='/TRV_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_25", src='/TRV_2007_2012.png')],
                                outline=True, style=style_button)),
             dbc.Col(dbc.Button(id='button_26',
-                               children=[dbc.CardImg(src='/UNH_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_26", src='/UNH_2007_2012.png')],
                                outline=True, style=style_button)),
             dbc.Col(dbc.Button(id='button_27',
-                               children=[dbc.CardImg(src='/V_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_27", src='/V_2007_2012.png')],
                                outline=True, style=style_button)),
             dbc.Col(dbc.Button(id='button_28',
-                               children=[dbc.CardImg(src='/VZ_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_28", src='/VZ_2007_2012.png')],
                                outline=True, style=style_button)),
             dbc.Col(dbc.Button(id='button_29',
-                               children=[dbc.CardImg(src='/WBA_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_29", src='/WBA_2007_2012.png')],
                                outline=True, style=style_button)),
             dbc.Col(dbc.Button(id='button_30',
-                               children=[dbc.CardImg(src='/WMT_2007_2012.png')],
+                               children=[dbc.CardImg(id="button_image_30", src='/WMT_2007_2012.png')],
                                outline=True, style=style_button))]
         ),
     ], fluid=True),
 ])
-
 
 
 @app.callback(Output(component_id='user_portfolio', component_property='data'),
@@ -285,21 +284,50 @@ def on_click(*n_clicks, **kwargs):
     return n_clicks
 
 
-@app.callback(Output(component_id='clicks', component_property='children'),
+@app.callback([Output(component_id='clicks', component_property='children')] +
+              [Output(component_id='button_image_{}'.format(stock_id), component_property='src') for stock_id in
+               range(1, 31)],
               [Input(component_id='button_{}'.format(stock_id), component_property='n_clicks') for stock_id in
                range(1, 31)])
 def displayClick(*n_clicks):
     n_clicks = tuple(0 if n_click is None else n_click for n_click in n_clicks)
     clicks = sum(n_clicks)
+    # Hier sind die Pfade zu den Bildern, die in den unterschiedlichen Stationen angezeigt werden sollen
+    image_sources1 = ['/AAPL_2007_2012.png', 'AMGN_2007_2012.png', '/AXP_2007_2012.png', '/BA_2007_2012.png',
+                      '/CAT_2007_2012.png', '/CRM_2007_2012.png', '/CSCO_2007_2012.png', '/CVX_2007_2012.png',
+                      '/DIS_2007_2012.png', '/GE_2007_2012.png', '/GS_2007_2012.png', '/HD_2007_2012.png',
+                      '/HON_2007_2012.png', '/IBM_2007_2012.png', '/INTC_2007_2012.png', '/JNJ_2007_2012.png',
+                      '/JPM_2007_2012.png', '/KO_2007_2012.png', '/MCD_2007_2012.png', '/MMM_2007_2012.png',
+                      '/MRK_2007_2012.png', '/MSFT_2007_2012.png', '/NKE_2007_2012.png', '/PG_2007_2012.png',
+                      '/TRV_2007_2012.png', '/UNH_2007_2012.png', '/V_2007_2012.png', '/VZ_2007_2012.png',
+                      '/WBA_2007_2012.png', '/WMT_2007_2012.png']
+    image_sources2 = ['/AAPL_2012_2017.png', 'AMGN_2012_2017.png', '/AXP_2012_2017.png', '/BA_2012_2017.png',
+                      '/CAT_2012_2017.png', '/CRM_2012_2017.png', '/CSCO_2012_2017.png', '/CVX_2012_2017.png',
+                      '/DIS_2012_2017.png', '/GE_2012_2017.png', '/GS_2012_2017.png', '/HD_2012_2017.png',
+                      '/HON_2012_2017.png', '/IBM_2012_2017.png', '/INTC_2012_2017.png', '/JNJ_2012_2017.png',
+                      '/JPM_2012_2017.png', '/KO_2012_2017.png', '/MCD_2012_2017.png', '/MMM_2012_2017.png',
+                      '/MRK_2012_2017.png', '/MSFT_2012_2017.png', '/NKE_2012_2017.png', '/PG_2012_2017.png',
+                      '/TRV_2012_2017.png', '/UNH_2012_2017.png', '/V_2012_2017.png', '/VZ_2012_2017.png',
+                      '/WBA_2012_2017.png', '/WMT_2012_2017.png']
+
+    # Je nachdem wie viele Clicks gemacht wurden, geben wir dann entweder die eine oder andere Liste zurück
     if clicks < 10:
         free_clicks = 10 - clicks
         msg = 'Wählen Sie bitte {} Aktien aus'.format(free_clicks)
+        image_sources = image_sources1
     elif clicks >= 10 and clicks < 20:
         free_clicks = 20 - clicks
         msg = 'Wählen Sie bitte {} Aktien aus'.format(free_clicks)
+        # At this point, we change the values of the image locations
+        image_sources = image_sources2
     else:
         msg = 'Bitte klicken Sie auf weiter'
-    return html.Div(msg)
+        image_sources = image_sources2
+
+    # Der Grund warum das funktioniert, ist weil wir oben in der Annotation von der Funktion weitere Outputs hinzugefügt
+    # haben. Damit weiß dash, wo die Outputs hingehören. Das "*" Symbol ist dazu da, um die Liste zu "entpacken", also
+    # anstatt einer Liste mit 30 Elementen die 30 Elemente zurück zu geben
+    return html.Div(msg), *image_sources
 
 
 @app.callback([Output(component_id='graph_data', component_property='data'),
@@ -547,7 +575,6 @@ var_h = sum(dev_h) / (len(pct_change_h - 1))
 stdev_h = var_h ** (1 / 2)
 sr_h = (mean_h * 252) / (stdev_h * 252 ** (1 / 2))
 
-
 pct_change_r = Graph['Random'].pct_change()
 mean_r = pct_change_r.sum() / len(pct_change_r)
 dev_r = [(x - mean_r) ** 2 for x in pct_change_r]
@@ -559,15 +586,13 @@ sr_r = (mean_r / stdev_r) * 252 ** (1 / 2)
 Abs_Ret_R = round(Graph.iloc[-1]['Random'], 2)
 Abs_Ret_H = round(Graph.iloc[-1]['Historisch'], 2)
 
-Tot_Ret_R = round(((Graph.iloc[-1]['Random'] / Graph.iloc[0]['Random'])**(1/10) - 1)*100, 2)
-Tot_Ret_H = round(((Graph.iloc[-1]['Historisch'] / Graph.iloc[0]['Historisch'])**(1/10) - 1)*100, 2)
+Tot_Ret_R = round(((Graph.iloc[-1]['Random'] / Graph.iloc[0]['Random']) ** (1 / 10) - 1) * 100, 2)
+Tot_Ret_H = round(((Graph.iloc[-1]['Historisch'] / Graph.iloc[0]['Historisch']) ** (1 / 10) - 1) * 100, 2)
 
 number_player = len(fr)
 
 with open('leaderboard.txt', 'a') as f:
     f.write(str((number_player, sr_r, sr_h, Abs_Ret_R, Abs_Ret_H, Tot_Ret_R, Tot_Ret_H)) + "\n")
-
-
 
 table_header = [html.Thead(html.Tr([html.Th("Portfolio"), html.Th("Endwert"),
                                     html.Th("Absoluter Ertrag in % p.a."), html.Th("Sharpe Ratio")]))]
@@ -614,8 +639,8 @@ def display_page(pathname):
         return page_2_layout
     elif pathname == '/page-3':
         return page_3_layout
-    #elif pathname == '/page-4':
-     #   return page_4_layout
+    # elif pathname == '/page-4':
+    #   return page_4_layout
     else:
         return index_page
     # You could also return a 404 "URL not found" page here
@@ -623,7 +648,6 @@ def display_page(pathname):
 
 if __name__ == '__main__':
     app.run_server(debug=True)
-
 
 # Farben für Graph
 # Benchmark - Schwarz; Buffett - Blau
