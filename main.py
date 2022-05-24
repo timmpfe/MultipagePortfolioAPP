@@ -8,7 +8,8 @@ from dash.exceptions import PreventUpdate
 
 import pandas as pd
 
-pd.options.mode.chained_assignment = None  # default='warn'
+# just that the warning that a copy on an existing df is made does not pop up
+pd.options.mode.chained_assignment = None
 
 from flask import Flask
 
@@ -17,6 +18,7 @@ server = Flask(__name__, static_url_path="", static_folder="static")
 '''Create an Dash-Environment on the server'''
 
 app = dash.Dash(__name__, server=server, external_stylesheets=[dbc.themes.BOOTSTRAP],
+                # meta_tags is used that the page adjusts to the screen size
                 meta_tags=[{'name': 'viewport',
                             'content': 'width=device-width, initial-scale=1.0'}],
                 suppress_callback_exceptions=True)
@@ -25,13 +27,11 @@ app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
     html.Div(id='page-content')
 ])
-
+# the index page is important that the links between the pages work
 index_page = html.Div([
     dcc.Link('Random', href='/page-1'),
     html.Br(),
     dcc.Link('Historische Information', href='/page-2'),
-    html.Br(),
-    # dcc.Link('Historische Information 2', href='/page-3'),
     html.Br(),
     dcc.Link('Summary', href='/page-3'),
 ])
@@ -293,7 +293,7 @@ def on_click(*n_clicks, **kwargs):
 def displayClick(*n_clicks):
     n_clicks = tuple(0 if n_click is None else n_click for n_click in n_clicks)
     clicks = sum(n_clicks)
-    # Hier sind die Pfade zu den Bildern, die in den unterschiedlichen Stationen angezeigt werden sollen
+    # This is the path for the pictures, which should be displayed in the different periods
     image_sources1 = ['/AAPL_2007_2012.png', 'AMGN_2007_2012.png', '/AXP_2007_2012.png', '/BA_2007_2012.png',
                       '/CAT_2007_2012.png', '/CRM_2007_2012.png', '/CSCO_2007_2012.png', '/CVX_2007_2012.png',
                       '/DIS_2007_2012.png', '/GE_2007_2012.png', '/GS_2007_2012.png', '/HD_2007_2012.png',
@@ -311,7 +311,7 @@ def displayClick(*n_clicks):
                       '/TRV_2012_2017.png', '/UNH_2012_2017.png', '/V_2012_2017.png', '/VZ_2012_2017.png',
                       '/WBA_2012_2017.png', '/WMT_2012_2017.png']
 
-    # Je nachdem wie viele Clicks gemacht wurden, geben wir dann entweder die eine oder andere Liste zurück
+    # depending on the Clicks, the list of pictures changes
     if clicks < 10:
         free_clicks = 10 - clicks
         msg = 'Wählen Sie bitte {} Aktien aus'.format(free_clicks)
@@ -325,9 +325,8 @@ def displayClick(*n_clicks):
         msg = 'Bitte klicken Sie auf weiter'
         image_sources = image_sources2
 
-    # Der Grund warum das funktioniert, ist weil wir oben in der Annotation von der Funktion weitere Outputs hinzugefügt
-    # haben. Damit weiß dash, wo die Outputs hingehören. Das "*" Symbol ist dazu da, um die Liste zu "entpacken", also
-    # anstatt einer Liste mit 30 Elementen die 30 Elemente zurück zu geben
+    # The "*" symbol tells Dash to unpack the list, meaning instead of returning the list it will return the elements
+    # of the list
     return html.Div(msg), *image_sources
 
 
@@ -364,7 +363,7 @@ page_3_layout = html.Div([
         dbc.Row(html.H3('Zusammenfassung Ihres Portfolios', style=style_text)),
         dbc.Row(dcc.Link('Starte Neu', href='/page-1')),
         dbc.Row(dbc.Table(
-            # using the same table as in the above example
+
             children=[],
             id="table",
             color="primary",
@@ -388,6 +387,7 @@ def update_summary(num):
     if num == 0:
         raise PreventUpdate
     else:
+        # the only purpose of y_data is that it runs the whole code in the else function
         y_data = num
 
         benchmark = pd.read_csv('benchmark1.csv', parse_dates=['Date'])
@@ -457,7 +457,7 @@ def update_summary(num):
 
         df2.columns = symbols
 
-        '''-------------------------------Pie Charts for Portfolio allocation-----------------------------------------------'''
+        '''-------------------------------Pie Charts for Portfolio allocation----------------------------------------'''
 
         help_list = ['Apple', 'Amgen', 'American Express', 'Boeing', 'Caterpillar',
                      'Salesforce', 'Cisco Systems', 'Chevron', 'Disney',
@@ -594,13 +594,9 @@ def display_page(pathname):
         return page_3_layout
     else:
         return index_page
-    # You could also return a 404 "URL not found" page here
+    # You could also return a 404 "URL not found" page when the user uses a wrong url
 
 
 if __name__ == '__main__':
     app.run_server(debug=True)
 
-# Farben für Graph
-# Benchmark - Schwarz; Buffett - Blau
-# Historisch und Random - Verschiedene Rottöne
-# In summary - Buffett und Dow hinzufügen
