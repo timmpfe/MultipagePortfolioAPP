@@ -10,7 +10,7 @@ pd.options.mode.chained_assignment = None  # default='warn'
 def get_data():
     data = pd.read_csv('leaderboard.txt', header=None)
     data.columns = ['Nummer', 'Sharpe Ratio', 'Sharpe Ratio 2', 'Endwert', 'Absoluter Ertrag 2',
-                    '% Ertrag', '% Ertrag 2']
+                    'Ertrag in % p.a.', '% Ertrag 2']
 
     for i in range(len(data)):
         data.loc[i, 'Nummer'] = data.loc[i, 'Nummer'].replace(data.loc[i, 'Nummer'], data.loc[i, 'Nummer'][1:])
@@ -19,19 +19,19 @@ def get_data():
     data = data.astype(float).round(4)
 
     data2 = data.drop_duplicates(subset=['Nummer'])
-    data1a = data2[['Nummer', 'Sharpe Ratio', 'Endwert', '% Ertrag']]
+    num1 = int(data2.Nummer.iloc[-1])
+    data1a = data2[['Nummer', 'Sharpe Ratio', 'Endwert', 'Ertrag in % p.a.']]
+    data1a.loc[data1a['Nummer'] == 0, 'Nummer'] = 'Buffett'
     data1b = data2[['Nummer', 'Sharpe Ratio 2', 'Absoluter Ertrag 2', '% Ertrag 2']]
-    data1b.columns = ['Nummer', 'Sharpe Ratio', 'Endwert', '% Ertrag']
-    data1b = data1b.iloc[1:]
+    data1b.columns = ['Nummer', 'Sharpe Ratio', 'Endwert', 'Ertrag in % p.a.']
+    data1b.loc[data1b['Nummer'] == 0, 'Nummer'] = 'Dow Jones'
     data1 = data1a.append(data1b)
     data1 = data1.sort_values(by=['Sharpe Ratio'], ascending=False)
     data1['Rang'] = range(len(data1))
     data1['Rang'] += 1
-
-    num = data.iloc[-1].Nummer
-    Platz = data1.loc[data1['Nummer'] == num, 'Rang'].iloc[0]
-
-    return data1, num, Platz
+    Platz = data1.loc[data1['Nummer'] == num1, 'Rang'].iloc[0]
+    data1 = data1[['Rang', 'Nummer', 'Endwert', 'Sharpe Ratio', 'Ertrag in % p.a.']]
+    return data1, num1, Platz
 
 
 init_data, init_num, init_platz = get_data()
@@ -64,10 +64,17 @@ app.layout = html.Div([
                                      style_data_conditional=[
                                          {
                                              'if': {
-                                                 'filter_query': '{Nummer} = "1"'
+                                                 'filter_query': '{Nummer} = "Buffett"',
                                              },
                                              'backgroundColor': '#003361',
                                              'color': '#f39200'
+                                         },
+{
+                                             'if': {
+                                                 'filter_query': '{Nummer} = "Dow Jones"',
+                                             },
+                                             'backgroundColor': '#f39200',
+                                             'color': '#003361'
                                          }
                                      ])
                 ),
@@ -84,11 +91,9 @@ def updateTable(n_intervals):
     data, num, platz = get_data()
     # ... und gibt sie an Dash zurück. Dank der Annotation weiß Dash, wo die Daten dann hingehören
     return get_data()[0].to_dict('records'), 'Sie sind auf Platz: {}'.format(platz), 'Ihre Nummmer lautet: {}'.format(
-        int(init_num))
+        num)
 
 
 if __name__ == '__main__':
     app.run_server(debug=True, host='localhost', port=8000)
 
-# Rang, Nummer, Endwert, Sharpe Ratio, Ertrag % p.a.
-# Benchmark in Leaderboard
